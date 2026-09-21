@@ -1,0 +1,179 @@
+# Data Cleaning Documentation
+
+## 1. Dataset Information
+
+**Dataset Name:** College Admission Dataset (India) 
+
+**Source:** Kaggle
+
+**Original Credit:** Kundan Sagar Bedmutha
+
+### Dataset Description
+
+The **College Admission Dataset (India)** provides a comprehensive representation of the college admission landscape in India. It contains information about students from **26 different Indian states**, covering diverse academic backgrounds and career aspirations.
+
+The dataset includes variables related to student demographics, preferred academic streams, entrance examinations such as **JEE, NEET, and CET**, Class 12 board performance, extracurricular involvement, admission probability, admission status, and scholarship eligibility.
+
+---
+
+# 2. Data Cleaning Process
+
+Before performing exploratory data analysis and visualization, the dataset was inspected and cleaned to ensure that it was suitable for analysis. The process involved checking the structure of the dataset, missing values, duplicate records, descriptive statistics, data types, inconsistent values, and potential outliers.
+
+## 2.1 First Five Rows – `data.head()`
+
+```python
+data.head()
+```
+
+The `data.head()` function was used to display the first five rows of the dataset. This provided an initial view of the data and confirmed that the dataset had been loaded correctly.
+
+## 2.2 Dataset Shape – `data.shape`
+
+```python
+data.shape
+```
+
+The dataset contains **25,000 rows and 13 columns**. The rows represent individual student records, while the columns represent the different variables describing each student.
+
+## 2.3 Column Names – `data.columns`
+
+```python
+data.columns
+```
+
+The dataset contains the following variables:
+
+* `student_id`
+* `age`
+* `gender`
+* `category`
+* `state`
+* `preferred_stream`
+* `entrance_exam`
+* `entrance_score`
+* `board_percentage`
+* `extracurricular_score`
+* `admission_probability`
+* `admission_status`
+* `scholarship_eligibility`
+
+## 2.4 Missing Values – `data.isnull().sum()`
+
+```python
+data.isnull().sum()
+```
+
+The check returned **0 missing values across all columns**. Therefore, no missing-value treatment was required.
+
+## 2.5 Duplicate Records – `data.duplicated().sum()`
+
+```python
+data.duplicated().sum()
+```
+
+The result was **0**, indicating that no completely duplicated records were found. Therefore, no duplicate records were removed.
+
+## 2.6 Descriptive Statistics – `data.describe()`
+
+```python
+data.describe()
+```
+
+Descriptive statistics were used to examine the numerical variables, including their count, mean, standard deviation, minimum, maximum, and quartile values. This provided an overview of the numerical data and helped identify values that required further investigation.
+
+## 2.7 Data Types – `data.dtypes`
+
+```python
+data.dtypes
+```
+
+The data types of the columns were checked to ensure that the variables were stored appropriately. Numerical variables such as age, entrance score, board percentage, extracurricular score, and admission probability were stored as numerical data types, while categorical variables were stored as object/string values.
+
+No major data-type issues were identified.
+
+---
+
+# 3. Checking for Inconsistent Values
+
+The categorical variables were examined for inconsistent or unexpected values, including differences in spelling, capitalization, or category names.
+
+The variables checked included:
+
+* Gender
+* Category
+* State
+* Preferred Stream
+* Entrance Exam
+* Admission Status
+* Scholarship Eligibility
+
+The values were reviewed to ensure that the categories were consistent and suitable for analysis.
+
+---
+
+# 4. Outlier Detection
+
+Outliers were investigated using two methods: **visual inspection using boxplots** and the **Interquartile Range (IQR) method**.
+
+## 4.1 Visual Method – Boxplots
+
+Boxplots were created for the numerical variables to identify unusually high or low values.
+
+The variables examined included:
+
+* Age
+* Entrance Score
+* Board Percentage
+* Extracurricular Score
+* Admission Probability
+
+The boxplots showed potential outliers in some numerical variables, particularly **entrance score** and **admission probability**. These values were investigated further using the IQR method.
+
+## 4.2 Statistical Method – Interquartile Range (IQR)
+
+The IQR method was used to statistically identify potential outliers.
+
+**IQR = Q3 − Q1**
+
+**Lower Bound = Q1 − 1.5 × IQR**
+
+**Upper Bound = Q3 + 1.5 × IQR**
+
+For `entrance_score`, the IQR method identified values above the calculated upper bound as potential outliers. However, the dataset contains different entrance examinations, including **CET, JEE, and NEET**, which have different scoring ranges.
+
+For this reason, the identified high entrance scores were investigated rather than automatically removed.
+
+The `admission_probability` variable also contained some values above its IQR upper bound, which were similarly examined before deciding how they should be handled.
+
+---
+
+# 5. Handling Outliers
+
+The identified outliers were not automatically removed because an unusual value does not necessarily represent an error.
+
+For `entrance_score`, the potential outliers were retained because students took different entrance examinations with different scoring ranges. Removing them based only on the overall IQR could result in the loss of valid observations.
+
+The identified values in `admission_probability` were also examined in the context of the dataset before making a decision.
+
+Therefore, outlier handling was based on the **context and meaning of the data**, rather than simply removing every observation identified by the IQR method.
+
+---
+
+# 6. Cleaning Summary
+
+The data cleaning process consisted of:
+
+1. Inspecting the dataset using `data.head()`.
+2. Checking its size using `data.shape`.
+3. Reviewing the column names using `data.columns`.
+4. Checking for missing values using `data.isnull().sum()`.
+5. Checking for duplicate records using `data.duplicated().sum()`.
+6. Examining numerical statistics using `data.describe()`.
+7. Checking data types using `data.dtypes`.
+8. Inspecting categorical variables for inconsistent values.
+9. Detecting potential outliers using boxplots.
+10. Confirming potential outliers using the IQR method.
+11. Investigating and handling outliers based on the context of the dataset.
+
+After the cleaning process, the dataset was prepared for **exploratory data analysis, visualization, and development of the Admission Data Explorer**.
