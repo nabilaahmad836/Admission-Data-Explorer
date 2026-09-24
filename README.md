@@ -56,4 +56,4 @@ This project explores a college admission dataset using Python to identify patte
 
 ## Project Presentation
 
-[View Admission Data Explorer Presentation](https://1drv.ms/p/c/9A4AC9C8F98BD51C/IQC2p_m__YMyQamnLBtp-jPHAZxAfrg1QIhmkYKso6cKsb4?e=iE7RZ4)
+[View Admission Data Explorer Presentation](https://pdflink.to/748170ac/)
